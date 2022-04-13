@@ -3,5 +3,5 @@
   object-fit: cover;
 
   width: 120px;
-  aspect-ratio: 1;
+  height: 100%;
 }
