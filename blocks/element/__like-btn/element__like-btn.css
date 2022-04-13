@@ -3,4 +3,9 @@
   border: none;
   background-color: #fff;
   cursor: pointer;
+  transition: opacity .4s ease-in;
+}
+
+.element__like-btn:hover {
+  opacity: 0.5;
 }
