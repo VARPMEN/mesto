@@ -1,0 +1,4 @@
+.fullscreen-image__picture {
+  object-fit: contain;
+  object-position: center;
+}

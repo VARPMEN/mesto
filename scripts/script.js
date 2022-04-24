@@ -1,20 +1,19 @@
-let profile = document.querySelector('.profile');
-let popupEditProfile = document.querySelector('.popup_edit_profile');
-let popupAddElement = document.querySelector('.popup_add_element');
+const profile = document.querySelector('.profile');
+const popupAll = document.querySelectorAll('.popup');
+const popupChangeProfile = document.querySelector('.popup_edit_profile');
+const popupAddElement = document.querySelector('.popup_add_element');
+const popupPhoto = document.querySelector('.popup_photo_fullsize');
 
 let editBtn = profile.querySelector('.profile__edit-button');
 let addBtn = profile.querySelector('.profile__add-button');
-let closeBtnEdPop = popupEditProfile.querySelector('.popup__close-btn');
-let closeBtnAdPop = popupAddElement.querySelector('.popup__close-btn');
 
-
-let popupFormEdPop = popupEditProfile.querySelector('.popup__form');
+let popupFormChPop = popupChangeProfile.querySelector('.popup__form');
 let popupFormAdPop = popupAddElement.querySelector('.popup__form');
 
 let userName = profile.querySelector('.profile__user-name');
 let userJob = profile.querySelector('.profile__user-job');
-let inputName = popupEditProfile.querySelector('.popup__input_text_user-name');
-let inputJob = popupEditProfile.querySelector('.popup__input_text_user-job');
+let inputName = popupChangeProfile.querySelector('.popup__input_text_user-name');
+let inputJob = popupChangeProfile.querySelector('.popup__input_text_user-job');
 
 let inputTitle = popupAddElement.querySelector('.popup__input_text_title');
 let inputImage = popupAddElement.querySelector('.popup__input_src_image');
@@ -46,63 +45,71 @@ const initialElements = [
   }
 ];
 
-let elements = document.querySelector('.elements');
-const elementTemplate = document.querySelector('#element').content;
-
-initialElements.forEach(function(item) {
-  let elementElement = elementTemplate.querySelector('.element').cloneNode(true);
-  elementElement.querySelector('.element__name').innerText = item.name;
-  elementElement.querySelector('.element__image').src = item.link;
-  elementElement.querySelector('.element__image').alt = item.name;
-  
-  elements.append(elementElement);
+popupAll.forEach(function(item) {
+  item.querySelector('.popup__close-btn').addEventListener('click', function(){
+    item.classList.toggle('popup_opened');
+  });
 });
 
-function inputText() {
+  let elements = document.querySelector('.elements');
+
+const elementTemplate = document.querySelector('#element').content;
+
+function elementAdd (text, src) {
+  const elementElement = elementTemplate.querySelector('.element').cloneNode(true);
+ elementElement.querySelector('.element__name').innerText = text; 
+  
+elementElement.querySelector('.element__image').src = src;
+  
+elementElement.querySelector('.element__like-btn').addEventListener('click', function(evt) {    evt.target.classList.toggle('element__like-btn_active');
+  });
+  
+const elementPhoto = elementElement.querySelector('.element__image');
+  
+elementPhoto.addEventListener('click', function(){
+  popupPhoto.classList.add('popup_opened');
+  popupPhoto.querySelector('.fullscreen-image__picture').src = src;
+  popupPhoto.querySelector('.fullscreen-image__caption').innerText = text;
+});
+
+const deleteBtn = elementElement.querySelector('.element__delete-btn');
+  
+deleteBtn.addEventListener('click', function () {
+const elementItem = deleteBtn.closest('.element');
+elementItem.remove();
+});
+  return elementElement;
+}
+
+initialElements.forEach(function(item) {
+elements.append(elementAdd (item.name, item.link));
+});
+
+function openPopupClickChPop() {
   inputName.value = userName.innerText;
   inputJob.value = userJob.innerText;
+  popupChangeProfile.classList.add('popup_opened');
 }
 
-function openPopupClickEdPop () {
-  inputText();
-  popupEditProfile.classList.add('popup_opened');
-}
-
-function closePopupClickEdPop () {
-  popupEditProfile.classList.remove('popup_opened');
-}
-
-function popupSubmitEditText(evt) {
+function popupSubmitChangeText(evt) {
   evt.preventDefault();
   userName.textContent = inputName.value;
   userJob.textContent = inputJob.value;
-  closePopupClickEdPop();
+  popupChangeProfile.classList.remove('popup_opened');  
 }
 
-function openPopupClickAdPop() {
+function openPopupClickAdPop(){
+  inputTitle.value = '';
+  inputImage.value = '';
   popupAddElement.classList.add('popup_opened');
 }
 
-function closePopupClickAdPop() {
+function popupSubmitAddElement(evt){
+  evt.preventDefault();  
+  elements.prepend(elementAdd (inputTitle.value, inputImage.value));
   popupAddElement.classList.remove('popup_opened');
-  inputTitle.value = '';
-  inputImage.value = '';
+  
 }
-
-function popupSubmitAddElement(evt) {
-  evt.preventDefault();
-  let elementElement = elementTemplate.querySelector('.element').cloneNode(true);
-  elementElement.querySelector('.element__name').innerText = inputTitle.value;
-  elementElement.querySelector('.element__image').src = inputImage.value;
-  elementElement.querySelector('.element__image').alt = inputTitle.name;
-  elements.prepend(elementElement);
-  closePopupClickAdPop();
-}
-
-editBtn.addEventListener('click', openPopupClickEdPop);
-closeBtnEdPop.addEventListener('click', closePopupClickEdPop);
-popupFormEdPop.addEventListener('submit', popupSubmitEditText);
-
-addBtn.addEventListener('click', openPopupClickAdPop);
-closeBtnAdPop.addEventListener('click', closePopupClickAdPop);
-popupFormAdPop.addEventListener('submit', popupSubmitAddElement);
+addBtn.addEventListener('click', openPopupClickAdPop);  
+popupFormChPop.addEventListener('submit', popupSubmitChangeText);
+editBtn.addEventListener('click', openPopupClickChPop);                       popupFormAdPop.addEventListener('submit', popupSubmitAddElement);
