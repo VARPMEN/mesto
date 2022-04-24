@@ -5,9 +5,20 @@
   bottom: 0;
   right: 0;
 
-  display: none;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s, opacity 0.5s ease-in;
+
+  display: flex;
   justify-content: center;
   align-items: center;
 
   background-color: rgba(0, 0, 0, .5);
+
+  font-family: 'Inter', 'Arial', sans-serif;
+
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility; 
 }
