@@ -8,6 +8,7 @@
   transition: opacity .4s ease-in;
   width: 22px;
   height: 19px;
+  align-self: flex-end;
 }
 
 .element__like-btn:hover {
