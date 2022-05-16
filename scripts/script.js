@@ -48,13 +48,13 @@ const initialElements = [
 function popupOpen(popup) {
   popup.classList.add("popup_opened");
 
-  popupEventEscBtn(popup);
+  document.addEventListener("keydown", pressEscClosePopup);
 }
 
 function popupClose(popup) {
   popup.classList.remove("popup_opened");
 
-  popupEventEscBtn(popup);
+  document.removeEventListener("keydown", pressEscClosePopup);
 }
 
 function clickOverlay(evt) {
@@ -63,19 +63,12 @@ function clickOverlay(evt) {
   }
 }
 
-const popupEventEscBtn = (popup) => {
-  const EscPressClosePopup = (evt) => {
-    if (evt.key === "Escape") {
-      popupClose(popup);
-    }
-  };
-
-  if (popup.classList.contains("popup_opened")) {
-    document.addEventListener("keydown", EscPressClosePopup);
-  } else {
-    document.removeEventListener("keydown", EscPressClosePopup);
+const pressEscClosePopup = (evt) => {
+  if (evt.key === "Escape") {
+    const popup = document.querySelector(".popup_opened");
+    popupClose(popup);
   }
-};
+}
 
 popupAll.forEach(function (item) {
   item
@@ -120,7 +113,7 @@ initialElements.forEach(function (item) {
   elementContainer.append(elementAdd(item.name, item.link));
 });
 
-function openPopupClickChPop() {
+function openClickEditPopup() {
   const userNameText = userName.textContent;
   const userJobText = userJob.textContent;
 
@@ -139,9 +132,8 @@ function popupSubmitChangeText(evt) {
   popupClose(popupChangeProfile);
 }
 
-function openPopupClickAdPop() {
-  inputTitle.value = "";
-  inputImage.value = "";
+function openClickAddCardPopup() {
+  popupAddElement.querySelector(".popup__form").reset();
 
   popupOpen(popupAddElement);
 }
@@ -164,7 +156,7 @@ elementContainer.addEventListener("click", (evt) => {
   }
 });
 
-buttonAdd.addEventListener("click", openPopupClickAdPop);
+buttonAdd.addEventListener("click", openClickAddCardPopup);
 popupFormChPop.addEventListener("submit", popupSubmitChangeText);
-buttonEdit.addEventListener("click", openPopupClickChPop);
+buttonEdit.addEventListener("click", openClickEditPopup);
 popupFormAdPop.addEventListener("submit", popupSubmitAddElement);
