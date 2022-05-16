@@ -68,14 +68,14 @@ const popupEventEscBtn = (popup) => {
     if (evt.key === "Escape") {
       popupClose(popup);
     }
-  }
+  };
 
   if (popup.classList.contains("popup_opened")) {
     document.addEventListener("keydown", EscPressClosePopup);
   } else {
-    document.removeEventListener("keydown", EscPressClosePopup); 
+    document.removeEventListener("keydown", EscPressClosePopup);
   }
-}
+};
 
 popupAll.forEach(function (item) {
   item
@@ -110,9 +110,7 @@ function elementAdd(text, src) {
     pictureFullscreen.src = src;
     pictureFullscreen.alt = text;
 
-    popupPhoto
-      .querySelector(".fullscreen-image__caption")
-      .textContent = text;
+    popupPhoto.querySelector(".fullscreen-image__caption").textContent = text;
   });
 
   return elementElement;
@@ -157,11 +155,11 @@ function popupSubmitAddElement(evt) {
 }
 
 elementContainer.addEventListener("click", (evt) => {
-  if (evt.target.classList.contains("element__like-btn")){
+  if (evt.target.classList.contains("element__like-btn")) {
     evt.target.classList.toggle("element__like-btn_active");
   }
 
-  if (evt.target.classList.contains("element__delete-btn-icon")){
+  if (evt.target.classList.contains("element__delete-btn-icon")) {
     evt.target.closest(".element").remove();
   }
 });

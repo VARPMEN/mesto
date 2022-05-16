@@ -1,4 +1,6 @@
 .popup__error {
+  display: block;
+  padding-bottom: 13px;
   visibility: hidden;
   font-family: 'Inter', 'Arial', sans-serif;
   color: #FF0000;

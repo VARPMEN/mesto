@@ -1,93 +1,195 @@
 <!DOCTYPE html>
 <html lang="ru">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mesto</title>
-  <link rel="stylesheet" href="./pages/index.css">
-</head>
-<body>
-  <div class="page">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mesto</title>
+    <link rel="stylesheet" href="./pages/index.css" />
+  </head>
+  <body>
+    <div class="page">
+      <header class="header">
+        <img src="./images/logo.svg" alt="Место" class="header__logo" />
+      </header>
 
-    <header class="header">
-      <img src="./images/logo.svg" alt="Место" class="header__logo">
-    </header>
-
-    <main>
-      <section class="profile container" aria-label="Профиль">
-        <div class="profile__info-block">
-          <img src="./images/profile-photo.jpg" alt="Ваш аватар" class="profile__avatar">
-          <div class="profile__info">
-            <div class="profile__info-container">
-              <h1 class="profile__user-name">Жак-Ив Кусто</h1>
-              <button class="profile__edit-button" type="button" aria-label="Редактировать профиль"><img src="./images/edit-button-icon.svg" alt="Редактирование" class="profile__edit-button-icon"></button>
+      <main>
+        <section class="profile container" aria-label="Профиль">
+          <div class="profile__info-block">
+            <img
+              src="./images/profile-photo.jpg"
+              alt="Ваш аватар"
+              class="profile__avatar"
+            />
+            <div class="profile__info">
+              <div class="profile__info-container">
+                <h1 class="profile__user-name">Жак-Ив Кусто</h1>
+                <button
+                  class="profile__edit-button"
+                  type="button"
+                  aria-label="Редактировать профиль"
+                >
+                  <img
+                    src="./images/edit-button-icon.svg"
+                    alt="Редактирование"
+                    class="profile__edit-button-icon"
+                  />
+                </button>
+              </div>
+              <p class="profile__user-job">Исследователь океана</p>
             </div>
-            <p class="profile__user-job">Исследователь океана</p>
           </div>
-        </div>
-        <button class="profile__add-button" type="button" aria-label="Добавить публикацию"><img src="./images/add-button-icon.svg" alt="Добавить публикацию" class="profile__add-button-icon"></button>
-      </section>
+          <button
+            class="profile__add-button"
+            type="button"
+            aria-label="Добавить публикацию"
+          >
+            <img
+              src="./images/add-button-icon.svg"
+              alt="Добавить публикацию"
+              class="profile__add-button-icon"
+            />
+          </button>
+        </section>
 
-      <section class="elements container" aria-label="Галерея">
-      </section>
-    </main>
+        <section class="elements container" aria-label="Галерея"></section>
+      </main>
 
-    <footer class="footer container">
-      <p class="footer__copyright">
-        &copy; 2020 Mesto Russia
-      </p>
-    </footer>
-  </div>
-
-  <section class="popup popup_edit_profile" aria-label="Редактирование профиля">
-    <div class="popup__container">
-      <button class="popup__close-btn" type="button" aria-label="Закрыть окно"><img src="./images/close-icon.svg" alt="Закрыть" class="popup__close-btn-icon"></button>
-      <h2 class="popup__title">Редактировать профиль</h2>
-      <form novalidate class="popup__form" name="popup-form">
-        <input type="text" id="user-name" name="user-name" class="popup__input popup__input_text_user-name" placeholder="Имя" required minlength="2" maxlength="40">
-        <span class="popup__error error-user-name" id="error-user-name"></span> 
-        <input type="text" id="user-job" name="user-job" class="popup__input popup__input_text_user-job" placeholder="О себе" required minlength="2" maxlength="200">
-        <span class="popup__error error-user-job" id="error-user-job"></span>
-        <button class="popup__submit-btn" type="submit">Сохранить</button>
-      </form>
+      <footer class="footer container">
+        <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
+      </footer>
     </div>
-  </section>
 
-  <section class="popup popup_add_element" aria-label="Добавить место">
-    <div class="popup__container">
-      <button class="popup__close-btn" type="button" aria-label="Закрыть окно"><img src="./images/close-icon.svg" alt="Закрыть" class="popup__close-btn-icon"></button>
-      <h2 class="popup__title">Добавить место</h2>
-      <form novalidate class="popup__form" name="popup-form">
-        <input type="text" id="title" name="title" class="popup__input popup__input_text_title" placeholder="Название" required minlength="2" maxlength="30">
-        <span class="popup__error error-title" id="error-title"></span>
-        <input type="url" id="image" name="image" class="popup__input popup__input_src_image" placeholder="Ссылка на картинку" required>
-        <span class="popup__error error-image" id="error-image"></span>
-        <button class="popup__submit-btn" type="submit">Создать</button>
-      </form>
-    </div>
-  </section>
-
-  <section class="popup popup_photo_fullsize popup_dark_overlay" aria-label="Полный размер">
-    <figure class="fullscreen-image">
-      <img src="#" alt="#" class="fullscreen-image__picture">
-      <button class="popup__close-btn" type="button" aria-label="Закрыть окно"><img src="./images/close-icon.svg" alt="Закрыть" class="popup__close-btn-icon"></button>
-      <figcaption><p class="fullscreen-image__caption"></p></figcaption>
-  </figure>
-  </section>
-  
-  <template id="element">
-    <article class="element">
-      <img src="#" alt="#" class="element__image">
-      <button class="element__delete-btn" type="button" aria-label="Удалить"><img src="./images/delete-btn-icon.svg" alt="Удалить" class="element__delete-btn-icon"></button>
-      <div class="element__container">
-        <h2 class="element__name"></h2>
-        <button class="element__like-btn" type="button" aria-label="Поставить лайк">
+    <section
+      class="popup popup_edit_profile"
+      aria-label="Редактирование профиля"
+    >
+      <div class="popup__container">
+        <button
+          class="popup__close-btn"
+          type="button"
+          aria-label="Закрыть окно"
+        >
+          <img
+            src="./images/close-icon.svg"
+            alt="Закрыть"
+            class="popup__close-btn-icon"
+          />
         </button>
+        <h2 class="popup__title">Редактировать профиль</h2>
+        <form novalidate class="popup__form" name="popup-form">
+          <input
+            type="text"
+            id="user-name"
+            name="user-name"
+            class="popup__input popup__input_text_user-name"
+            placeholder="Имя"
+            required
+            minlength="2"
+            maxlength="40"
+          />
+          <span
+            class="popup__error user-name-error"
+            id="error-user-name"
+          ></span>
+          <input
+            type="text"
+            id="user-job"
+            name="user-job"
+            class="popup__input popup__input_text_user-job"
+            placeholder="О себе"
+            required
+            minlength="2"
+            maxlength="200"
+          />
+          <span class="popup__error user-job-error" id="error-user-job"></span>
+          <button class="popup__submit-btn" type="submit">Сохранить</button>
+        </form>
       </div>
-    </article>
-  </template>
+    </section>
 
-  <script src="./scripts/script.js"></script>
-  <script src="./scripts/validate.js"></script>
-</body>
+    <section class="popup popup_add_element" aria-label="Добавить место">
+      <div class="popup__container">
+        <button
+          class="popup__close-btn"
+          type="button"
+          aria-label="Закрыть окно"
+        >
+          <img
+            src="./images/close-icon.svg"
+            alt="Закрыть"
+            class="popup__close-btn-icon"
+          />
+        </button>
+        <h2 class="popup__title">Добавить место</h2>
+        <form novalidate class="popup__form" name="popup-form">
+          <input
+            type="text"
+            id="title"
+            name="title"
+            class="popup__input popup__input_text_title"
+            placeholder="Название"
+            required
+            minlength="2"
+            maxlength="30"
+          />
+          <span class="popup__error title-error" id="error-title"></span>
+          <input
+            type="url"
+            id="image"
+            name="image"
+            class="popup__input popup__input_src_image"
+            placeholder="Ссылка на картинку"
+            required
+          />
+          <span class="popup__error image-error" id="error-image"></span>
+          <button class="popup__submit-btn" type="submit">Создать</button>
+        </form>
+      </div>
+    </section>
+
+    <section
+      class="popup popup_photo_fullsize popup_dark_overlay"
+      aria-label="Полный размер"
+    >
+      <figure class="fullscreen-image">
+        <img src="#" alt="#" class="fullscreen-image__picture" />
+        <button
+          class="popup__close-btn"
+          type="button"
+          aria-label="Закрыть окно"
+        >
+          <img
+            src="./images/close-icon.svg"
+            alt="Закрыть"
+            class="popup__close-btn-icon"
+          />
+        </button>
+        <figcaption><p class="fullscreen-image__caption"></p></figcaption>
+      </figure>
+    </section>
+
+    <template id="element">
+      <article class="element">
+        <img src="#" alt="#" class="element__image" />
+        <button class="element__delete-btn" type="button" aria-label="Удалить">
+          <img
+            src="./images/delete-btn-icon.svg"
+            alt="Удалить"
+            class="element__delete-btn-icon"
+          />
+        </button>
+        <div class="element__container">
+          <h2 class="element__name"></h2>
+          <button
+            class="element__like-btn"
+            type="button"
+            aria-label="Поставить лайк"
+          ></button>
+        </div>
+      </article>
+    </template>
+
+    <script src="./scripts/script.js"></script>
+    <script src="./scripts/validate.js"></script>
+  </body>
 </html>
