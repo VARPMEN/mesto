@@ -2,6 +2,7 @@ const profile = document.querySelector(".profile");
 const popupAll = document.querySelectorAll(".popup");
 const popupChangeProfile = document.querySelector(".popup_edit_profile");
 const popupAddElement = document.querySelector(".popup_add_element");
+const submitBtnPopupAddElement = popupAddElement.querySelector(".popup__submit-btn");
 const popupPhoto = document.querySelector(".popup_photo_fullsize");
 const buttonEdit = profile.querySelector(".profile__edit-button");
 const buttonAdd = profile.querySelector(".profile__add-button");
@@ -68,7 +69,7 @@ const pressEscClosePopup = (evt) => {
     const popup = document.querySelector(".popup_opened");
     popupClose(popup);
   }
-}
+};
 
 popupAll.forEach(function (item) {
   item
@@ -132,10 +133,17 @@ function popupSubmitChangeText(evt) {
   popupClose(popupChangeProfile);
 }
 
+function disabledAddPopupButton (button) {
+  button.classList.add("popup__submit-btn_invalid");
+  button.disabled = "disabled";
+}
+
 function openClickAddCardPopup() {
   popupAddElement.querySelector(".popup__form").reset();
 
   popupOpen(popupAddElement);
+
+  disabledAddPopupButton(submitBtnPopupAddElement);
 }
 
 function popupSubmitAddElement(evt) {
