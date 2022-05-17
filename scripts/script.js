@@ -133,17 +133,12 @@ function popupSubmitChangeText(evt) {
   popupClose(popupChangeProfile);
 }
 
-function disabledAddPopupButton (button) {
-  button.classList.add("popup__submit-btn_invalid");
-  button.disabled = "disabled";
-}
-
 function openClickAddCardPopup() {
   popupAddElement.querySelector(".popup__form").reset();
 
   popupOpen(popupAddElement);
 
-  disabledAddPopupButton(submitBtnPopupAddElement);
+  disabledPopupButton(submitBtnPopupAddElement);
 }
 
 function popupSubmitAddElement(evt) {

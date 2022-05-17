@@ -50,10 +50,14 @@ function hasInvalidInput(inputList) {
   });
 }
 
+function disabledPopupButton (button) {
+  button.classList.add("popup__submit-btn_invalid");
+  button.disabled = "disabled";
+}
+
 function toggleButtonState(inputList, buttonElement, obj) {
   if (hasInvalidInput(inputList)) {
-    buttonElement.classList.add(obj.inactiveButtonClass);
-    buttonElement.disabled = "disabled";
+    disabledPopupButton(buttonElement);
   } else {
     buttonElement.classList.remove(obj.inactiveButtonClass);
     buttonElement.disabled = "";
