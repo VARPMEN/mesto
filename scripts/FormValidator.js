@@ -7,6 +7,12 @@ class FormValidator {
     this._inputErrorClass = obj.inputErrorClass;
     this._errorClass = obj.errorClass;
     this._formElement = formElement;
+    this._inputList = Array.from(
+      this._formElement.querySelectorAll(this._inputSelector)
+    );
+    this._submitButton = this._formElement.querySelector(
+      this._submitButtonSelector
+    );
   }
 
   _showError = (inputElement, errorMessage) => {
@@ -36,19 +42,12 @@ class FormValidator {
   };
 
   _setEventListeners() {
-    const inputList = Array.from(
-      this._formElement.querySelectorAll(this._inputSelector)
-    );
-    const buttonElement = this._formElement.querySelector(
-      this._submitButtonSelector
-    );
+    this.toggleButtonState();
 
-    this._toggleButtonState(inputList, buttonElement);
-
-    inputList.forEach((inputElement) => {
+    this._inputList.forEach((inputElement) => {
       inputElement.addEventListener("input", () => {
         this._checkInputValidaty(inputElement);
-        this._toggleButtonState(inputList, buttonElement);
+        this.toggleButtonState();
       });
     });
   }
@@ -63,13 +62,13 @@ class FormValidator {
     });
   }
 
-  _toggleButtonState(inputList, buttonElement) {
-    if (this._hasInvalidInput(inputList)) {
-      buttonElement.classList.add("popup__submit-btn_invalid");
-      buttonElement.disabled = "disabled";
+  toggleButtonState() {
+    if (this._hasInvalidInput(this._inputList)) {
+      this._submitButton.classList.add(this._inactiveButtonClass);
+      this._submitButton.disabled = "disabled";
     } else {
-      buttonElement.classList.remove(this._inactiveButtonClass);
-      buttonElement.disabled = "";
+      this._submitButton.classList.remove(this._inactiveButtonClass);
+      this._submitButton.disabled = "";
     }
   }
 }

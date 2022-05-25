@@ -33,14 +33,20 @@ const validatorOptions = {
   errorClass: "popup__error_active",
 };
 
-const formList = Array.from(document.querySelectorAll(".popup__form"));
+const addFormValidator = createFormValidator(popupFormAdPop);
 
-formList.forEach((formElement) => {
-  const form = new FormValidator(validatorOptions, formElement);
-  form.enableValidation();
-});
+function createCard(title, imageLink) {
+  return new Card(title, imageLink, "#element", popupOpen).generateCard();
+}
 
-export function popupOpen(popup) {
+function createFormValidator(form) {
+  return new FormValidator(validatorOptions, form);
+}
+
+addFormValidator.enableValidation();
+createFormValidator(popupFormChPop).enableValidation();
+
+function popupOpen(popup) {
   popup.classList.add("popup_opened");
 
   document.addEventListener("keydown", pressEscClosePopup);
@@ -76,8 +82,7 @@ popupAll.forEach(function (item) {
 });
 
 initialElements.forEach(function (item) {
-  const card = new Card(item.name, item.link, "#element");
-  elementContainer.append(card.generateCard());
+  elementContainer.append(createCard(item.name, item.link));
 });
 
 function openClickEditPopup() {
@@ -100,20 +105,15 @@ function popupSubmitChangeText(evt) {
 }
 
 function openClickAddCardPopup() {
-  popupAddElement.querySelector(".popup__form").reset();
-
-  submitBtnPopupAddElement.classList.add("popup__submit-btn_invalid");
-  submitBtnPopupAddElement.disabled = "disabled";
-
+  popupFormAdPop.reset();
   popupOpen(popupAddElement);
+  addFormValidator.toggleButtonState();
 }
 
 function popupSubmitAddElement(evt) {
   evt.preventDefault();
 
-  const card = new Card(inputTitle.value, inputImage.value, "#element");
-
-  elementContainer.prepend(card.generateCard());
+  elementContainer.prepend(createCard(inputTitle.value, inputImage.value));
 
   popupClose(popupAddElement);
 }

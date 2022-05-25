@@ -1,10 +1,11 @@
-import { popupOpen } from "./script.js";
+import { popupPhoto, pictureFullscreen, imageCaption } from "./utils.js";
 
 class Card {
-  constructor(title, imageLink, cardSelector) {
+  constructor(title, imageLink, cardSelector, callback) {
     this._title = title;
     this._cardSelector = cardSelector;
     this._imageLink = imageLink;
+    this._callback = callback;
   }
 
   _getTemplate() {
@@ -32,18 +33,12 @@ class Card {
   }
 
   _eventFullsizeScreen() {
-    const popupPhoto = document.querySelector(".popup_photo_fullsize");
-
-    popupOpen(popupPhoto);
-    const pictureFullscreen = popupPhoto.querySelector(
-      ".fullscreen-image__picture"
-    );
+    this._callback(popupPhoto);
 
     pictureFullscreen.src = this._imageLink;
     pictureFullscreen.alt = this._title;
 
-    popupPhoto.querySelector(".fullscreen-image__caption").textContent =
-      this._title;
+    imageCaption.textContent = this._title;
   }
 
   _eventLikeButton(evt) {
@@ -54,7 +49,8 @@ class Card {
 
   _eventRemoveCard(evt) {
     if (evt.target.classList.contains("element__delete-btn-icon")) {
-      evt.target.closest(".element").remove();
+      this._element.remove();
+      this._element = null;
     }
   }
 
@@ -63,8 +59,9 @@ class Card {
 
     this._setEventListeners();
 
-    this._element.querySelector(".element__image").src = this._imageLink;
-    this._element.querySelector(".element__image").alt = this._title;
+    const elementImage = this._element.querySelector(".element__image");
+    elementImage.src = this._imageLink;
+    elementImage.alt = this._title;
     this._element.querySelector(".element__name").textContent = this._title;
 
     return this._element;
