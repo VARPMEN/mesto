@@ -36,7 +36,7 @@ const validatorOptions = {
 const addFormValidator = createFormValidator(popupFormAdPop);
 
 function createCard(title, imageLink) {
-  return new Card(title, imageLink, "#element", popupOpen).generateCard();
+  return new Card(title, imageLink, "#element", openPopup).generateCard();
 }
 
 function createFormValidator(form) {
@@ -46,13 +46,13 @@ function createFormValidator(form) {
 addFormValidator.enableValidation();
 createFormValidator(popupFormChPop).enableValidation();
 
-function popupOpen(popup) {
+function openPopup(popup) {
   popup.classList.add("popup_opened");
 
   document.addEventListener("keydown", pressEscClosePopup);
 }
 
-function popupClose(popup) {
+function closePopup(popup) {
   popup.classList.remove("popup_opened");
 
   document.removeEventListener("keydown", pressEscClosePopup);
@@ -60,14 +60,14 @@ function popupClose(popup) {
 
 function clickOverlay(evt) {
   if (evt.target === evt.currentTarget) {
-    popupClose(evt.currentTarget);
+    closePopup(evt.currentTarget);
   }
 }
 
 const pressEscClosePopup = (evt) => {
   if (evt.key === "Escape") {
     const popup = document.querySelector(".popup_opened");
-    popupClose(popup);
+    closePopup(popup);
   }
 };
 
@@ -75,7 +75,7 @@ popupAll.forEach(function (item) {
   item
     .querySelector(".popup__close-btn")
     .addEventListener("click", function () {
-      popupClose(item);
+      closePopup(item);
     });
 
   item.addEventListener("click", clickOverlay);
@@ -92,7 +92,7 @@ function openClickEditPopup() {
   inputName.value = userNameText;
   inputJob.value = userJobText;
 
-  popupOpen(popupChangeProfile);
+  openPopup(popupChangeProfile);
 }
 
 function popupSubmitChangeText(evt) {
@@ -101,12 +101,12 @@ function popupSubmitChangeText(evt) {
   userName.textContent = inputName.value;
   userJob.textContent = inputJob.value;
 
-  popupClose(popupChangeProfile);
+  closePopup(popupChangeProfile);
 }
 
 function openClickAddCardPopup() {
   popupFormAdPop.reset();
-  popupOpen(popupAddElement);
+  openPopup(popupAddElement);
   addFormValidator.toggleButtonState();
 }
 
@@ -115,7 +115,7 @@ function popupSubmitAddElement(evt) {
 
   elementContainer.prepend(createCard(inputTitle.value, inputImage.value));
 
-  popupClose(popupAddElement);
+  closePopup(popupAddElement);
 }
 
 buttonAdd.addEventListener("click", openClickAddCardPopup);

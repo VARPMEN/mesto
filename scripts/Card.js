@@ -1,11 +1,11 @@
 import { popupPhoto, pictureFullscreen, imageCaption } from "./utils.js";
 
 class Card {
-  constructor(title, imageLink, cardSelector, callback) {
+  constructor(title, imageLink, cardSelector, openPopup) {
     this._title = title;
     this._cardSelector = cardSelector;
     this._imageLink = imageLink;
-    this._callback = callback;
+    this._openPopup = openPopup;
   }
 
   _getTemplate() {
@@ -33,7 +33,7 @@ class Card {
   }
 
   _eventFullsizeScreen() {
-    this._callback(popupPhoto);
+    this._openPopup(popupPhoto);
 
     pictureFullscreen.src = this._imageLink;
     pictureFullscreen.alt = this._title;
