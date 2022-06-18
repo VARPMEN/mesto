@@ -1,4 +1,4 @@
-import "../../pages/index.css";
+import "./index.css";
 
 import { Card } from "../components/Card.js";
 import {
@@ -35,8 +35,11 @@ function createFormValidator(form) {
   return new FormValidator(validatorOptions, form);
 }
 
-createFormValidator(popupFormAdPop).enableValidation();
-createFormValidator(popupFormChPop).enableValidation();
+const addFormValitation = createFormValidator(popupFormAdPop);
+const editFormValitation = createFormValidator(popupFormChPop);
+
+addFormValitation.enableValidation();
+editFormValitation.enableValidation();
 
 const renderContainer = new Section(
   {
@@ -73,10 +76,12 @@ const generateEditPopup = new PopupWithForm(".popup_edit_profile", {
 generateEditPopup.setEventListeners();
 
 buttonAdd.addEventListener("click", () => {
+  addFormValitation.resetValidation();
   generateAddPopup.open();
 });
 
 buttonEdit.addEventListener("click", () => {
+  editFormValitation.resetValidation();
   const userData = userInfo.getUserInfo();
   inputName.value = userData.name;
   inputJob.value = userData.info;
