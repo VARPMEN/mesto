@@ -1,11 +1,9 @@
-import { popupPhoto, pictureFullscreen, imageCaption } from "./utils.js";
-
-class Card {
-  constructor(title, imageLink, cardSelector, openPopup) {
-    this._title = title;
+export class Card {
+  constructor({ item, handleCardClick }, cardSelector) {
+    this._title = item.name;
     this._cardSelector = cardSelector;
-    this._imageLink = imageLink;
-    this._openPopup = openPopup;
+    this._imageLink = item.link;
+    this._handleCardClick = handleCardClick;
   }
 
   _getTemplate() {
@@ -33,12 +31,7 @@ class Card {
   }
 
   _eventFullsizeScreen() {
-    this._openPopup(popupPhoto);
-
-    pictureFullscreen.src = this._imageLink;
-    pictureFullscreen.alt = this._title;
-
-    imageCaption.textContent = this._title;
+    this._handleCardClick();
   }
 
   _eventLikeButton(evt) {
@@ -67,5 +60,3 @@ class Card {
     return this._element;
   }
 }
-
-export { Card };

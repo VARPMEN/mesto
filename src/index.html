@@ -4,19 +4,22 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mesto</title>
-    <link rel="stylesheet" href="./pages/index.css" />
   </head>
   <body>
     <div class="page">
       <header class="header">
-        <img src="./images/logo.svg" alt="Место" class="header__logo" />
+        <img
+          src="<%=require('./images/logo.svg')%>"
+          alt="Место"
+          class="header__logo"
+        />
       </header>
 
       <main>
         <section class="profile container" aria-label="Профиль">
           <div class="profile__info-block">
             <img
-              src="./images/profile-photo.jpg"
+              src="<%=require('./images/profile-photo.jpg')%>"
               alt="Ваш аватар"
               class="profile__avatar"
             />
@@ -29,7 +32,7 @@
                   aria-label="Редактировать профиль"
                 >
                   <img
-                    src="./images/edit-button-icon.svg"
+                    src="<%=require('./images/edit-button-icon.svg')%>"
                     alt="Редактирование"
                     class="profile__edit-button-icon"
                   />
@@ -44,7 +47,7 @@
             aria-label="Добавить публикацию"
           >
             <img
-              src="./images/add-button-icon.svg"
+              src="<%=require('./images/add-button-icon.svg')%>"
               alt="Добавить публикацию"
               class="profile__add-button-icon"
             />
@@ -70,7 +73,7 @@
           aria-label="Закрыть окно"
         >
           <img
-            src="./images/close-icon.svg"
+            src="<%=require('./images/close-icon.svg')%>"
             alt="Закрыть"
             class="popup__close-btn-icon"
           />
@@ -80,7 +83,7 @@
           <input
             type="text"
             id="user-name"
-            name="user-name"
+            name="name"
             class="popup__input popup__input_text_user-name"
             placeholder="Имя"
             required
@@ -94,7 +97,7 @@
           <input
             type="text"
             id="user-job"
-            name="user-job"
+            name="info"
             class="popup__input popup__input_text_user-job"
             placeholder="О себе"
             required
@@ -115,7 +118,7 @@
           aria-label="Закрыть окно"
         >
           <img
-            src="./images/close-icon.svg"
+            src="<%=require('./images/close-icon.svg')%>"
             alt="Закрыть"
             class="popup__close-btn-icon"
           />
@@ -125,7 +128,7 @@
           <input
             type="text"
             id="title"
-            name="title"
+            name="name"
             class="popup__input popup__input_text_title"
             placeholder="Название"
             required
@@ -136,7 +139,7 @@
           <input
             type="url"
             id="image"
-            name="image"
+            name="link"
             class="popup__input popup__input_src_image"
             placeholder="Ссылка на картинку"
             required
@@ -159,7 +162,7 @@
           aria-label="Закрыть окно"
         >
           <img
-            src="./images/close-icon.svg"
+            src="<%=require('./images/close-icon.svg')%>"
             alt="Закрыть"
             class="popup__close-btn-icon"
           />
@@ -173,7 +176,7 @@
         <img src="#" alt="#" class="element__image" />
         <button class="element__delete-btn" type="button" aria-label="Удалить">
           <img
-            src="./images/delete-btn-icon.svg"
+            src="<%=require('./images/delete-btn-icon.svg')%>"
             alt="Удалить"
             class="element__delete-btn-icon"
           />
@@ -188,7 +191,5 @@
         </div>
       </article>
     </template>
-
-    <script src="./scripts/script.js" type="module"></script>
   </body>
 </html>
