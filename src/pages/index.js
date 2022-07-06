@@ -164,7 +164,7 @@ const generateEditPopup = new PopupWithForm(".popup_edit_profile", {
 
 generateEditPopup.setEventListeners();
 
-const generateAvatarPopup = new PopupWithForm(".popup__change_avatar", {
+const generateAvatarPopup = new PopupWithForm(".popup_change_avatar", {
   submitForm: (inputs) => {
     generateAvatarPopup.renderLoading(true, "Обновляем...");
     api

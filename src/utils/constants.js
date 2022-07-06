@@ -1,7 +1,7 @@
 const profile = document.querySelector(".profile");
 const popupChangeProfile = document.querySelector(".popup_edit_profile");
 const popupAddElement = document.querySelector(".popup_add_element");
-const popupChangeAvatar = document.querySelector(".popup__change_avatar");
+const popupChangeAvatar = document.querySelector(".popup_change_avatar");
 export const avatar = profile.querySelector(".profile__avatar-overlay");
 export const buttonEdit = profile.querySelector(".profile__edit-button");
 export const buttonAdd = profile.querySelector(".profile__add-button");
