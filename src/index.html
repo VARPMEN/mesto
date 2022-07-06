@@ -18,14 +18,19 @@
       <main>
         <section class="profile container" aria-label="Профиль">
           <div class="profile__info-block">
-            <img
-              src="<%=require('./images/profile-photo.jpg')%>"
-              alt="Ваш аватар"
-              class="profile__avatar"
-            />
+            <div class="profile__avatar-block">
+              <img src="" alt="Ваш аватар" class="profile__avatar" />
+              <div class="profile__avatar-overlay">
+                <img
+                  src="<%=require('./images/edit-button-icon.svg')%>"
+                  alt="Редактирование"
+                  class="profile__overlay-icon"
+                />
+              </div>
+            </div>
             <div class="profile__info">
               <div class="profile__info-container">
-                <h1 class="profile__user-name">Жак-Ив Кусто</h1>
+                <h1 class="profile__user-name"></h1>
                 <button
                   class="profile__edit-button"
                   type="button"
@@ -38,7 +43,7 @@
                   />
                 </button>
               </div>
-              <p class="profile__user-job">Исследователь океана</p>
+              <p class="profile__user-job"></p>
             </div>
           </div>
           <button
@@ -97,7 +102,7 @@
           <input
             type="text"
             id="user-job"
-            name="info"
+            name="about"
             class="popup__input popup__input_text_user-job"
             placeholder="О себе"
             required
@@ -150,6 +155,35 @@
       </div>
     </section>
 
+    <section class="popup popup__change_avatar" aria-label="Изменить аватар">
+      <div class="popup__container">
+        <button
+          class="popup__close-btn"
+          type="button"
+          aria-label="Закрыть окно"
+        >
+          <img
+            src="<%=require('./images/close-icon.svg')%>"
+            alt="Закрыть"
+            class="popup__close-btn-icon"
+          />
+        </button>
+        <h2 class="popup__title">Обновить аватар</h2>
+        <form novalidate class="popup__form" name="form-change-avatar">
+          <input
+            type="url"
+            id="image"
+            name="avatar"
+            class="popup__input popup__input_src_image"
+            placeholder="Ссылка на картинку"
+            required
+          />
+          <span class="popup__error image-error" id="error-image"></span>
+          <button class="popup__submit-btn" type="submit">Сохранить</button>
+        </form>
+      </div>
+    </section>
+
     <section
       class="popup popup_photo_fullsize popup_dark_overlay"
       aria-label="Полный размер"
@@ -171,6 +205,31 @@
       </figure>
     </section>
 
+    <section class="popup popup_confirm-remove">
+      <div class="popup__container">
+        <button
+          class="popup__close-btn"
+          type="button"
+          aria-label="Закрыть окно"
+        >
+          <img
+            src="<%=require('./images/close-icon.svg')%>"
+            alt="Закрыть"
+            class="popup__close-btn-icon"
+          />
+        </button>
+        <h2 class="popup__title popup__title_confirm-remove">
+          Вы уверены&#63;
+        </h2>
+        <button
+          class="popup__submit-btn popup__submit-btn_confirm-remove popup__confirm-btn"
+          type="button"
+        >
+          Да
+        </button>
+      </div>
+    </section>
+
     <template id="element">
       <article class="element">
         <img src="#" alt="#" class="element__image" />
@@ -183,11 +242,14 @@
         </button>
         <div class="element__container">
           <h2 class="element__name"></h2>
-          <button
-            class="element__like-btn"
-            type="button"
-            aria-label="Поставить лайк"
-          ></button>
+          <div class="element__like-container">
+            <button
+              class="element__like-btn"
+              type="button"
+              aria-label="Поставить лайк"
+            ></button>
+            <p class="element__counter-likes">1</p>
+          </div>
         </div>
       </article>
     </template>
