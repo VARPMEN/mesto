@@ -18,6 +18,7 @@ export class PopupWithForm extends Popup {
     if (isLoading) {
       this._submitButton.textContent = textMessage;
     } else {
+      this.close();
       this._submitButton.textContent = this._submitButtonText;
     }
   }

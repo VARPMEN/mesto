@@ -24,3 +24,16 @@ export const validatorOptions = {
   inputErrorClass: "popup__input_invalid",
   errorClass: "popup__error_active",
 };
+
+export const selectors = {
+  elementId: "#element",
+  elementsId: ".elements",
+  popupRemoveCardSelector: ".popup_confirm-remove",
+  popupWithImageSelector: ".popup_photo_fullsize",
+  popupAddElementSelector: ".popup_add_element",
+  popupEditProfileSelector: ".popup_edit_profile",
+  popupChangeAvatarSelector: ".popup_change_avatar",
+  inputUserNameSelector: ".profile__user-name",
+  inputUserInfoSelector: ".profile__user-job",
+  inputUserAvatarSelector: ".profile__avatar",
+};

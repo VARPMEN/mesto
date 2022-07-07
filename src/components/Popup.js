@@ -22,22 +22,14 @@ export default class Popup {
     }
   }
 
-  _handleClickOverlayClose(evt) {
-    if (evt.target === evt.currentTarget) {
-      this.close();
-    }
-  }
-
   setEventListeners() {
-    this._popup
-      .querySelector(".popup__close-btn")
-      .addEventListener("click", () => {
+    this._popup.addEventListener("click", (evt) => {
+      if (
+        evt.target.classList.contains("popup") ||
+        evt.target.classList.contains("popup__close-btn-icon")
+      ) {
         this.close();
-      });
-
-    this._popup.addEventListener(
-      "click",
-      this._handleClickOverlayClose.bind(this)
-    );
+      }
+    });
   }
 }

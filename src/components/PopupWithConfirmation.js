@@ -15,7 +15,6 @@ export class PopupWithConfirmation extends Popup {
     this._popup
       .querySelector(".popup__confirm-btn")
       .addEventListener("click", (evt) => {
-        evt.preventDefault();
         this._handleClickAction();
       });
   }

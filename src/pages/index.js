@@ -12,6 +12,7 @@ import {
   inputName,
   inputJob,
   validatorOptions,
+  selectors,
 } from "../utils/constants.js";
 import { FormValidator } from "../components/FormValidator.js";
 import Section from "../components/Section.js";
@@ -19,6 +20,7 @@ import { PopupWithImage } from "../components/PopupWithImage.js";
 import { PopupWithForm } from "../components/PopupWithForm.js";
 import { UserInfo } from "../components/UserInfo.js";
 import { PopupWithConfirmation } from "../components/PopupWithConfirmation.js";
+import { showError } from "../utils/utils";
 
 const api = new Api({
   baseUrl: "https://mesto.nomoreparties.co/v1/cohort-44",
@@ -30,10 +32,26 @@ const api = new Api({
 
 let userId;
 
-const createRemovePopup = new PopupWithConfirmation(".popup_confirm-remove");
-const createPopupImage = new PopupWithImage(".popup_photo_fullsize");
+const userInfo = new UserInfo({
+  userName: selectors.inputUserNameSelector,
+  userInfo: selectors.inputUserInfoSelector,
+  userAvatar: selectors.inputUserAvatarSelector,
+});
+
+const createRemovePopup = new PopupWithConfirmation(
+  selectors.popupRemoveCardSelector
+);
+const createPopupImage = new PopupWithImage(selectors.popupWithImageSelector);
 createPopupImage.setEventListeners();
 createRemovePopup.setEventListeners();
+
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+  .then(([user, data]) => {
+    userInfo.setUserInfo(user);
+    userId = user._id;
+    return renderContainer.renderItems(data);
+  })
+  .catch(showError);
 
 function createCard(data) {
   const card = new Card(
@@ -51,9 +69,7 @@ function createCard(data) {
               card.removeCard();
               createRemovePopup.close();
             })
-            .catch((err) => {
-              console.log(err);
-            });
+            .catch(showError);
         });
       },
       handleActivationLikeClick: () => {
@@ -63,9 +79,7 @@ function createCard(data) {
             card.changeLikeStatus();
             card.eventCounterLikes(info.likes.length);
           })
-          .catch((err) => {
-            console.log(err);
-          });
+          .catch(showError);
       },
       handleDisactivationLikeClick: () => {
         api
@@ -74,13 +88,11 @@ function createCard(data) {
             card.changeLikeStatus();
             card.eventCounterLikes(info.likes.length);
           })
-          .catch((err) => {
-            console.log(err);
-          });
+          .catch(showError);
       },
       userInfo: userId,
     },
-    "#element"
+    selectors.elementId
   );
 
   return card;
@@ -105,25 +117,10 @@ const renderContainer = new Section(
       renderContainer.addItem(card);
     },
   },
-  ".elements"
+  selectors.elementsId
 );
 
-api.getInitialCards().then((data) => {
-  return renderContainer.renderItems(data);
-});
-
-const userInfo = new UserInfo({
-  userName: ".profile__user-name",
-  userInfo: ".profile__user-job",
-  userAvatar: ".profile__avatar",
-});
-
-api.getUserInfo().then((info) => {
-  userInfo.setUserInfo(info);
-  userId = info._id;
-});
-
-const generateAddPopup = new PopupWithForm(".popup_add_element", {
+const generateAddPopup = new PopupWithForm(selectors.popupAddElementSelector, {
   submitForm: (inputs) => {
     generateAddPopup.renderLoading(true, "Сохранить...");
     api
@@ -132,11 +129,8 @@ const generateAddPopup = new PopupWithForm(".popup_add_element", {
         const item = createCard(card).generateCard();
         renderContainer.addItem(item);
       })
-      .catch((err) => {
-        console.log(err);
-      })
+      .catch(showError)
       .finally(() => {
-        generateAddPopup.close();
         generateAddPopup.renderLoading(false, "");
       });
   },
@@ -144,44 +138,43 @@ const generateAddPopup = new PopupWithForm(".popup_add_element", {
 
 generateAddPopup.setEventListeners();
 
-const generateEditPopup = new PopupWithForm(".popup_edit_profile", {
-  submitForm: (inputs) => {
-    generateEditPopup.renderLoading(true, "Меняем...");
-    api
-      .setUserInfo(inputs)
-      .then((item) => {
-        userInfo.setUserInfo(item);
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-      .finally(() => {
-        generateEditPopup.close();
-        generateEditPopup.renderLoading(false, "");
-      });
-  },
-});
+const generateEditPopup = new PopupWithForm(
+  selectors.popupEditProfileSelector,
+  {
+    submitForm: (inputs) => {
+      generateEditPopup.renderLoading(true, "Меняем...");
+      api
+        .setUserInfo(inputs)
+        .then((item) => {
+          userInfo.setUserInfo(item);
+        })
+        .catch(showError)
+        .finally(() => {
+          generateEditPopup.renderLoading(false, "");
+        });
+    },
+  }
+);
 
 generateEditPopup.setEventListeners();
 
-const generateAvatarPopup = new PopupWithForm(".popup_change_avatar", {
-  submitForm: (inputs) => {
-    generateAvatarPopup.renderLoading(true, "Обновляем...");
-    api
-      .setUserAvatar(inputs)
-      .then((item) => {
-        userInfo.setUserAvatar(item);
-        generateAvatarPopup.close();
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-      .finally(() => {
-        generateAvatarPopup.close();
-        generateAvatarPopup.renderLoading(false, "");
-      });
-  },
-});
+const generateAvatarPopup = new PopupWithForm(
+  selectors.popupChangeAvatarSelector,
+  {
+    submitForm: (inputs) => {
+      generateAvatarPopup.renderLoading(true, "Обновляем...");
+      api
+        .setUserAvatar(inputs)
+        .then((item) => {
+          userInfo.setUserAvatar(item);
+        })
+        .catch(showError)
+        .finally(() => {
+          generateAvatarPopup.renderLoading(false, "");
+        });
+    },
+  }
+);
 
 generateAvatarPopup.setEventListeners();
 

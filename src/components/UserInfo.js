@@ -6,12 +6,10 @@ export class UserInfo {
   }
 
   getUserInfo() {
-    this._userProfile = {
+    return {
       name: this._name.textContent,
       info: this._info.textContent,
     };
-
-    return this._userProfile;
   }
 
   setUserInfo(data) {
